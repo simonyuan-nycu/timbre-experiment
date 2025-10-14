@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音樂評分問卷</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <div class="container">
-        
+
         <h1>音樂評分問卷</h1>
 
-        <div id="progress-indicator" style="display: none;">
-            正在評分第 <span id="current-file-number">1</span> 首 / 共 <span id="total-file-number"></span> 首
-        </div>
-        
+
+
         <p id="instructions">請先專心聽完以下的音檔，評分選項將在播放結束後出現。</p>
-        
+
         <audio id="audio-player">
             您的瀏覽器不支援音訊播放功能。
         </audio>
-        
-        <button id="play-pause-btn">播放音樂</button>
+
+        <div class="player-controls">
+            <button id="play-pause-btn">播放音樂</button>
+            <button id="replay-btn" style="display: none;">重新播放</button>
+        </div>
 
         <form id="rating-form" name="music-rating" method="POST" data-netlify="true">
-            <fieldset>
+            <fieldset id="slider-fieldset">
                 <legend>在聽完音樂後，請根據您的感受在不同屬性給出您的評分：</legend>
-                
+            </fieldset>
+
+            <div id="form-action-buttons">
+            </div>
+
+            <!--<fieldset>
+                <legend>在聽完音樂後，請根據您的感受在不同屬性給出您的評分：</legend>
+
                 <div class="rating-options">
                     <label for="slim-slider">纖細 (Slim):</label>
                     <div class="slider-container">
@@ -143,14 +153,17 @@
                     </div>
                 </div>
 
-            </fieldset>
+            </fieldset> -->
 
             <div id="form-action-buttons">
                 <button type="submit" id="next-song-btn">下一步</button>
                 <button type="button" id="final-submit-btn" style="display: none;">下載資料</button>
             </div>
         </form>
-    </div> 
+        <div id="progress-indicator" style="display: none;">
+            正在評分第 <span id="current-file-number">1</span> 首 / 共 <span id="total-file-number"></span> 首
+        </div>
+    </div>
 
     <div id="modal-overlay">
         <div id="confirmation-modal">
@@ -167,4 +180,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
