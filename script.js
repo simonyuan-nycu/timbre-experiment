@@ -1,6 +1,6 @@
 // script.js (修正版：正確觸發 CSV 下載)
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     const audioFiles = [
         //"audio/1.wav",
@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const fileName = audioFiles[index];
         audioPlayer.src = fileName;
         audioPlayer.load();
-        
+
         playPauseBtn.style.display = 'inline-block';
         playPauseBtn.disabled = false;
         playPauseBtn.textContent = `播放音樂：第 ${index + 1} 首`;
-        
+
         nextSongBtn.disabled = true;
 
         allSliders.forEach(slider => {
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         allSliders.forEach(slider => {
             headers.push(slider.name);
         });
-        
+
         let csvContent = headers.join(',') + '\n';
 
         allRatings.forEach(rating => {
@@ -79,9 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
             csvContent += row.join(',') + '\n';
         });
 
-        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]); 
+        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
         const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
-        
+
         const link = document.createElement("a");
         if (link.download !== undefined) {
             const url = URL.createObjectURL(blob);
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    ratingForm.addEventListener('submit', function(event) {
+    ratingForm.addEventListener('submit', function (event) {
         event.preventDefault();
         let tableHeaderHTML = '';
         let tableBodyHTML = '';
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     cancelSubmitBtn.addEventListener('click', () => modalOverlay.classList.remove('visible'));
 
-    confirmSubmitBtn.addEventListener('click', function() {
+    confirmSubmitBtn.addEventListener('click', function () {
         saveCurrentRating();
         currentAudioIndex++;
         modalOverlay.classList.remove('visible');
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (instructions) instructions.style.display = 'none';
             const fieldset = ratingForm.querySelector('fieldset');
             if (fieldset) fieldset.style.display = 'none';
-            
+
             let thankYouMessage = document.getElementById('thank-you-message');
             if (!thankYouMessage) {
                 thankYouMessage = document.createElement('div');
@@ -156,16 +156,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 thankYouMessage.innerHTML = "<h2>感謝您的評分！</h2><p>所有音檔皆已評分完畢，請點擊下方按鈕來下載您的評分結果。</p><p>請將這份下載下來的excel(csv)檔案繳回給感知訊號處理實驗室</p>";
                 ratingForm.prepend(thankYouMessage);
             }
-            
+
             nextSongBtn.style.display = 'none';
             finalSubmitBtn.style.display = 'block';
         }
     });
-    
+
     // *** 核心修正點 ***
     // 將按鈕的點擊事件，指向正確的 CSV 下載函式
     finalSubmitBtn.addEventListener('click', generateAndDownloadCSV);
 
     loadAudio(currentAudioIndex);
-
 });
