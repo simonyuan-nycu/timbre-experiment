@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const audioFiles = [
         //"audio/1.wav",
         //"audio/2.wav",
-        //"audio/3.wav",
-        //"audio/4.wav",
+        "audio/3.wav",
+        "audio/4.wav",
         "audio/5.wav"
     ];
     let allRatings = [];
@@ -167,4 +167,5 @@ document.addEventListener('DOMContentLoaded', function() {
     finalSubmitBtn.addEventListener('click', generateAndDownloadCSV);
 
     loadAudio(currentAudioIndex);
+
 });
