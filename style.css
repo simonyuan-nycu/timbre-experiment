@@ -1,0 +1,370 @@
+/* --- 全域與基本設定 (Global & Basic Settings) --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    color: #444;
+    margin-bottom: 1.5em;
+}
+
+#next-song-btn:disabled {
+    background-color: #9fa8b3;
+    /* 較淺的灰色 */
+    color: #dfe3e6;
+    cursor: not-allowed;
+    /* 顯示禁止點擊的游標圖示 */
+}
+
+/* --- 主要版面配置 (Main Layout) --- */
+.container {
+    /* display: none; <-- 把這一行刪除！*/
+    /* 因為 survey.html 一載入就應該要顯示 */
+
+    /* ... 其他樣式維持不變 ... */
+    background-color: #fff;
+    padding: 2em 3em;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+}
+
+
+/* --- 修改說明頁面按鈕的樣式 --- */
+/* 將原本的 #welcome-screen button 選擇器改為 a.start-button */
+a.start-button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    /* 確保 padding 不會讓寬度超出 100% */
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    /* 移除連結的底線 */
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 2em;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    /* 文字置中 */
+}
+
+a.start-button:hover {
+    background-color: #218838;
+}
+
+
+/* --- 播放器與按鈕 (Player & Buttons) --- */
+
+/* 隱藏的原生播放器 */
+audio {
+    /* 雖然播放器被隱藏，但保留此設定是個好習慣 */
+    width: 100%;
+}
+
+/* 自訂的播放按鈕 */
+#play-pause-btn {
+    background-color: #28a745;
+    /* 綠色，表示開始 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1.5em;
+    transition: background-color 0.3s ease;
+}
+
+#play-pause-btn:hover {
+    background-color: #218838;
+}
+
+#play-pause-btn:disabled {
+    background-color: #6c757d;
+    /* 禁用時的灰色 */
+    cursor: not-allowed;
+}
+
+/* 表單內的送出按鈕 */
+form button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 2em;
+    /* 與最後一個滑桿的間距 */
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* --- 評分表單與滑桿 (Rating Form & Sliders) --- */
+form {
+    margin-top: 2em;
+    text-align: left;
+    /* 讓表單內容靠左對齊 */
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em 2em;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 0.5em;
+    color: #555;
+    font-size: 1.1em;
+}
+
+/* 每個滑桿選項的容器 */
+.rating-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2em;
+    /* 每個滑桿之間的垂直間距 */
+}
+
+/* 滑桿的文字標籤 */
+.rating-options label {
+    min-width: 180px;
+    /* 設定固定最小寬度以對齊 */
+    text-align: right;
+    /* 文字靠右，讓冒號對齊 */
+    margin-right: 1.5em;
+    /* 標籤與滑桿的間距 */
+    font-weight: normal;
+    /* 取消粗體，讓數字更突出 */
+    color: #495057;
+}
+
+/* 包裹滑桿和數值的容器 */
+.slider-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* 佔滿剩餘空間 */
+}
+
+/* 滑桿本體 */
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* 顯示滑桿數值的 Span */
+.slider-value {
+    font-weight: bold;
+    color: #007bff;
+    min-width: 2.5em;
+    /* 給定最小寬度，避免數字跳動 */
+    text-align: center;
+    margin-left: 1.5em;
+    font-size: 1.1em;
+}
+
+
+/* --- 彈出確認視窗 (Confirmation Modal) --- */
+
+/* 背景遮罩 */
+#modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#modal-overlay.visible {
+    display: flex;
+    opacity: 1;
+}
+
+/* 彈出視窗本體 */
+#confirmation-modal {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    /* 加寬以容納總覽表格 */
+    width: 90%;
+    text-align: left;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#modal-overlay.visible #confirmation-modal {
+    transform: scale(1);
+}
+
+#confirmation-modal h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* 總覽內容區 (放置表格) */
+#summary-content {
+    margin: 1.5em 0;
+}
+
+/* "高胡" 標題 */
+#summary-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: left;
+}
+
+/* 總覽表格 */
+#summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.9em;
+}
+
+#summary-table th,
+#summary-table td {
+    border: 1px solid #ccc;
+    padding: 8px 5px;
+    text-align: center;
+}
+
+#summary-table th {
+    font-weight: normal;
+    background-color: #f8f9fa;
+}
+
+/* 彈出視窗的按鈕區 */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#confirm-submit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+#confirm-submit-btn:hover {
+    background-color: #0056b3;
+}
+
+#cancel-submit-btn {
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+#cancel-submit-btn:hover {
+    background-color: #dae0e5;
+}
+
+#progress-indicator {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #6c757d;
+    margin-bottom: 1em;
+    background-color: #e9ecef;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    /* 讓背景色只包裹文字 */
+}
+
+/* --- 最終提交按鈕的樣式 (讓它和 "下一步" 有區別) --- */
+#final-submit-btn {
+    background-color: #28a745;
+    /* 綠色，表示完成 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 2em;
+    transition: background-color 0.3s ease;
+}
+
+#final-submit-btn:hover {
+    background-color: #218838;
+}
+
+/* --- 播放器按鈕容器樣式 --- */
+.player-controls {
+    display: flex;
+    /* 使用 Flexbox 排列 */
+    justify-content: center;
+    /* 水平置中 */
+    gap: 1em;
+    /* 按鈕間的距離 */
+    margin-top: 1.5em;
+    /* 與上方元素的距離 */
+}
+
+/* --- 重播按鈕的樣式 (讓它和主播放鈕有點區別) --- */
+#replay-btn {
+    background-color: #6c757d;
+    /* 中性灰色 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#replay-btn:hover {
+    background-color: #5a6268;
+}
+
+/* --- 進度提示在下方的新樣式 --- */
+#progress-indicator {
+    margin-top: 2em;
+    /* 與上方按鈕的距離 */
+}
