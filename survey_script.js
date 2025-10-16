@@ -1,33 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     const audioFiles =
-        [   //"audio/1.wav", 
+        [    //"audio/1.wav", 
             //"audio/2.wav", 
-            "audio/3.wav",
-            "audio/4.wav",
+            //"audio/3.wav",
+            //"audio/4.wav",
             "audio/5.wav"];
     let allRatings = [];
     let currentAudioIndex = 0;
 
+    // Use the simpler, cleaner data structure
     const sliderData = [
-        { id: 'slim-slider', name: 'slim', label: '纖細 (Slim):' },
-        { id: 'bright-slider', name: 'bright', label: '明亮 (Bright):' },
-        { id: 'dark-slider', name: 'dark', label: '黯淡 (Dark):' },
-        { id: 'sharp-slider', name: 'sharp', label: '尖銳 (Sharp):' },
-        { id: 'thick-slider', name: 'thick', label: '渾厚 (Thick):' },
-        { id: 'thin-slider', name: 'thin', label: '單薄 (Thin):' },
-        { id: 'rich-slider', name: 'rich', label: '厚實 (Rich):' },
-        { id: 'crisp-slider', name: 'crisp', label: '清脆 (Crisp):' },
-        { id: 'shriveled-slider', name: 'shriveled', label: '乾癟 (Shriveled):' },
-        { id: 'round-slider', name: 'round', label: '豐滿 (Round):' },
-        { id: 'rough-slider', name: 'rough', label: '粗糙 (Rough):' },
-        { id: 'pure-slider', name: 'pure', label: '純淨 (Pure):' },
-        { id: 'hoarse-slider', name: 'hoarse', label: '嘶啞 (Hoarse):' },
-        { id: 'harmonize-slider', name: 'harmonize', label: '和諧 (Harmonize):' },
-        { id: 'soft-slider', name: 'soft', label: '柔和 (Soft):' },
-        { id: 'muddy-slider', name: 'muddy', label: '混濁 (Muddy):' }
+        { name: 'slim', label: '纖細' }, { name: 'bright', label: '明亮' }, { name: 'dark', label: '黯淡' },
+        { name: 'sharp', label: '尖銳' }, { name: 'thick', label: '渾厚' }, { name: 'thin', label: '單薄' },
+        { name: 'rich', label: '厚實' }, { name: 'crisp', label: '清脆' }, { name: 'shriveled', label: '乾癟' },
+        { name: 'round', label: '豐滿' }, { name: 'rough', label: '粗糙' }, { name: 'pure', label: '純淨' },
+        { name: 'hoarse', label: '嘶啞' }, { name: 'harmonize', label: '和諧' }, { name: 'soft', label: '柔和' },
+        { name: 'muddy', label: '混濁' }
     ];
 
+    // --- Find ONLY the elements that exist on survey.html ---
     const sliderFieldset = document.getElementById('slider-fieldset');
     let allSliders;
     const mainTitle = document.querySelector('h1');
@@ -44,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const currentFileNumberSpan = document.getElementById('current-file-number');
     const totalFileNumberSpan = document.getElementById('total-file-number');
     const nextSongBtn = document.getElementById('next-song-btn');
-    const finalSubmitBtn = document.getElementById('final-submit-btn');
     const instructions = document.getElementById('instructions');
 
     function shuffleArray(array) {
@@ -58,12 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
         shuffleArray(sliderData);
         let slidersHTML = `<legend>在聽完音樂後，請根據您的感受在不同屬性給出您的評分：</legend>`;
         sliderData.forEach(data => {
+            const sliderId = `${data.name}-slider`;
+            const fullLabel = `${data.label} (${data.name.charAt(0).toUpperCase() + data.name.slice(1)}):`;
             slidersHTML += `
                 <div class="rating-options">
-                    <label for="${data.id}">${data.label}</label>
+                    <label for="${sliderId}">${fullLabel}</label>
                     <div class="slider-container">
-                        <input type="range" id="${data.id}" name="${data.name}" min="1" max="10" value="5" step="1">
-                        <span id="${data.id.replace('-slider', '-value')}" class="slider-value">5</span>
+                        <input type="range" id="${sliderId}" name="${data.name}" min="1" max="10" value="5" step="1">
+                        <span id="${sliderId.replace('-slider', '-value')}" class="slider-value">5</span>
                     </div>
                 </div>
             `;
@@ -104,60 +97,20 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log("目前的評分已儲存:", allRatings);
     }
 
-    function generateAndDownloadCSV() {
-        if (allRatings.length === 0) {
-            alert("沒有任何評分資料可供下載。");
-            return;
-        }
-        const headers = ['audioFile'].concat(sliderData.map(d => d.name));
-        let csvContent = headers.join(',') + '\n';
-        allRatings.forEach(rating => {
-            const row = headers.map(header => rating[header]);
-            csvContent += row.join(',') + '\n';
-        });
-        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-        const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        if (link.download !== undefined) {
-            const url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", "rating_results.csv");
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    }
-
     playPauseBtn.addEventListener('click', () => audioPlayer.play());
-
-    replayBtn.addEventListener('click', () => {
-        audioPlayer.currentTime = 0;
-        audioPlayer.play();
-    });
-
-    audioPlayer.addEventListener('play', () => {
-        playPauseBtn.disabled = true;
-        replayBtn.disabled = true;
-        playPauseBtn.textContent = '播放中...';
-    });
-
-    audioPlayer.addEventListener('ended', () => {
-        playPauseBtn.style.display = 'none';
-        replayBtn.style.display = 'inline-block';
-        replayBtn.disabled = false;
-        nextSongBtn.disabled = false;
-    });
-
+    replayBtn.addEventListener('click', () => { audioPlayer.currentTime = 0; audioPlayer.play(); });
+    audioPlayer.addEventListener('play', () => { playPauseBtn.disabled = true; replayBtn.disabled = true; playPauseBtn.textContent = '播放中...'; });
+    audioPlayer.addEventListener('ended', () => { playPauseBtn.style.display = 'none'; replayBtn.style.display = 'inline-block'; replayBtn.disabled = false; nextSongBtn.disabled = false; });
+    
     ratingForm.addEventListener('submit', function (event) {
         event.preventDefault();
         let tableHeaderHTML = '';
         let tableBodyHTML = '';
-        allSliders.forEach(slider => {
-            const label = document.querySelector(`label[for="${slider.id}"]`);
-            if (label) {
-                const labelText = label.textContent.split(' ')[0];
-                tableHeaderHTML += `<th>${labelText}</th>`;
+        // Use the original sliderData to maintain a consistent order in the modal
+        sliderData.forEach(data => {
+            const slider = document.getElementById(`${data.name}-slider`);
+            if (slider) {
+                tableHeaderHTML += `<th>${data.label}</th>`;
                 tableBodyHTML += `<td>${slider.value}</td>`;
             }
         });
@@ -175,25 +128,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentAudioIndex < audioFiles.length) {
             loadAudio(currentAudioIndex);
         } else {
-            if (mainTitle) mainTitle.style.display = 'none';
-            if (progressIndicator) progressIndicator.style.display = 'none';
-            if (instructions) instructions.style.display = 'none';
-            if (playerControls) playerControls.style.display = 'none';
-            const fieldset = ratingForm.querySelector('fieldset');
-            if (fieldset) fieldset.style.display = 'none';
-            let thankYouMessage = document.getElementById('thank-you-message');
-            if (!thankYouMessage) {
-                thankYouMessage = document.createElement('div');
-                thankYouMessage.id = 'thank-you-message';
-                thankYouMessage.innerHTML = "<h2>感謝您的評分！</h2><p>所有音檔皆已評分完畢，請點擊下方按鈕來下載您的評分結果。</p><p>請將這份下載下來的excel(csv)檔案繳回給感知認知處理實驗室</p>";
-                ratingForm.prepend(thankYouMessage);
+            // All songs are rated, save to localStorage and navigate
+            try {
+                const ratingsJSON = JSON.stringify(allRatings);
+                localStorage.setItem('allRatingsData', ratingsJSON);
+                window.location.href = 'demographics.html'; // Navigate to the next page
+            } catch (e) {
+                console.error("Error saving ratings to localStorage:", e);
+                alert("無法儲存評分資料，請聯繫實驗人員。");
             }
-            nextSongBtn.style.display = 'none';
-            finalSubmitBtn.style.display = 'block';
         }
     });
 
-    finalSubmitBtn.addEventListener('click', generateAndDownloadCSV);
-
+    // --- Initialize the page ---
     loadAudio(currentAudioIndex);
 });

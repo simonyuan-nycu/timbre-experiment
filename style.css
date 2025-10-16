@@ -1,4 +1,12 @@
-/* --- 全域與基本設定 (Global & Basic Settings) --- */
+/* ==========================================================================
+   style.css (Final Consolidated Version)
+   This file contains styles for all three pages:
+   1. index.html (Welcome Screen)
+   2. survey.html (Rating Task)
+   3. demographics.html (Final Questionnaire)
+   ========================================================================== */
+
+/* --- 1. Global & Basic Settings (Applied to all pages) --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f4f4f9;
@@ -7,49 +15,50 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 2em 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-h1 {
+h1, h2 {
     color: #444;
-    margin-bottom: 1.5em;
 }
 
-#next-song-btn:disabled {
-    background-color: #9fa8b3;
-    /* 較淺的灰色 */
-    color: #dfe3e6;
-    cursor: not-allowed;
-    /* 顯示禁止點擊的游標圖示 */
-}
 
-/* --- 主要版面配置 (Main Layout) --- */
-.container {
-    /* display: none; <-- 把這一行刪除！*/
-    /* 因為 survey.html 一載入就應該要顯示 */
-
-    /* ... 其他樣式維持不變 ... */
+/* --- 2. Styles for index.html (Welcome Screen) --- */
+#welcome-screen {
     background-color: #fff;
     padding: 2em 3em;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
     max-width: 800px;
     width: 90%;
 }
 
+#welcome-screen p {
+    line-height: 1.8;
+    text-align: left;
+}
 
-/* --- 修改說明頁面按鈕的樣式 --- */
-/* 將原本的 #welcome-screen button 選擇器改為 a.start-button */
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 2em 0;
+}
+
+.warning-text {
+    color: #AE0000;
+    font-weight: bold;
+}
+
 a.start-button {
     display: block;
     width: 100%;
     box-sizing: border-box;
-    /* 確保 padding 不會讓寬度超出 100% */
     background-color: #28a745;
     color: white;
     text-decoration: none;
-    /* 移除連結的底線 */
     padding: 15px;
     font-size: 1.2em;
     font-weight: bold;
@@ -58,313 +67,212 @@ a.start-button {
     margin-top: 2em;
     transition: background-color 0.3s ease;
     text-align: center;
-    /* 文字置中 */
 }
-
 a.start-button:hover {
     background-color: #218838;
 }
 
 
-/* --- 播放器與按鈕 (Player & Buttons) --- */
-
-/* 隱藏的原生播放器 */
-audio {
-    /* 雖然播放器被隱藏，但保留此設定是個好習慣 */
-    width: 100%;
-}
-
-/* 自訂的播放按鈕 */
-#play-pause-btn {
-    background-color: #28a745;
-    /* 綠色，表示開始 */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 1.5em;
-    transition: background-color 0.3s ease;
-}
-
-#play-pause-btn:hover {
-    background-color: #218838;
-}
-
-#play-pause-btn:disabled {
-    background-color: #6c757d;
-    /* 禁用時的灰色 */
-    cursor: not-allowed;
-}
-
-/* 表單內的送出按鈕 */
-form button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 2em;
-    /* 與最後一個滑桿的間距 */
-    transition: background-color 0.3s ease;
-}
-
-form button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-
-/* --- 評分表單與滑桿 (Rating Form & Sliders) --- */
-form {
-    margin-top: 2em;
-    text-align: left;
-    /* 讓表單內容靠左對齊 */
-}
-
-fieldset {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1.5em 2em;
-}
-
-legend {
-    font-weight: bold;
-    padding: 0 0.5em;
-    color: #555;
-    font-size: 1.1em;
-}
-
-/* 每個滑桿選項的容器 */
-.rating-options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.2em;
-    /* 每個滑桿之間的垂直間距 */
-}
-
-/* 滑桿的文字標籤 */
-.rating-options label {
-    min-width: 180px;
-    /* 設定固定最小寬度以對齊 */
-    text-align: right;
-    /* 文字靠右，讓冒號對齊 */
-    margin-right: 1.5em;
-    /* 標籤與滑桿的間距 */
-    font-weight: normal;
-    /* 取消粗體，讓數字更突出 */
-    color: #495057;
-}
-
-/* 包裹滑桿和數值的容器 */
-.slider-container {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    /* 佔滿剩餘空間 */
-}
-
-/* 滑桿本體 */
-input[type="range"] {
-    width: 100%;
-    cursor: pointer;
-}
-
-/* 顯示滑桿數值的 Span */
-.slider-value {
-    font-weight: bold;
-    color: #007bff;
-    min-width: 2.5em;
-    /* 給定最小寬度，避免數字跳動 */
-    text-align: center;
-    margin-left: 1.5em;
-    font-size: 1.1em;
-}
-
-
-/* --- 彈出確認視窗 (Confirmation Modal) --- */
-
-/* 背景遮罩 */
-#modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#modal-overlay.visible {
-    display: flex;
-    opacity: 1;
-}
-
-/* 彈出視窗本體 */
-#confirmation-modal {
+/* --- 3. Styles for survey.html (Rating Task) --- */
+.container {
     background-color: #fff;
-    padding: 2em;
+    padding: 2em 0;
     border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    /* 加寬以容納總覽表格 */
-    width: 90%;
-    text-align: left;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-}
-
-#modal-overlay.visible #confirmation-modal {
-    transform: scale(1);
-}
-
-#confirmation-modal h2 {
-    margin-top: 0;
-    color: #333;
-}
-
-/* 總覽內容區 (放置表格) */
-#summary-content {
-    margin: 1.5em 0;
-}
-
-/* "高胡" 標題 */
-#summary-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-    text-align: left;
-}
-
-/* 總覽表格 */
-#summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1em 0;
-    font-size: 0.9em;
-}
-
-#summary-table th,
-#summary-table td {
-    border: 1px solid #ccc;
-    padding: 8px 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
+    max-width: 1400px;
+    width: 95%;
 }
 
-#summary-table th {
-    font-weight: normal;
-    background-color: #f8f9fa;
+/* This rule adds padding back to the centered content inside .container */
+.container > h1,
+.container > #instructions,
+.container > .player-controls,
+.container > #rating-form,
+.container > #progress-indicator,
+.container > #thank-you-message {
+    padding-left: 3em;
+    padding-right: 3em;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* 彈出視窗的按鈕區 */
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1em;
-    margin-top: 1.5em;
-}
-
-.modal-actions button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-#confirm-submit-btn {
-    background-color: #007bff;
+/* Player Buttons */
+.player-controls { display: flex; justify-content: center; gap: 1em; margin-top: 1.5em; }
+#play-pause-btn, #replay-btn {
     color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+#play-pause-btn { background-color: #28a745; }
+#play-pause-btn:hover { background-color: #218838; }
+#play-pause-btn:disabled { background-color: #6c757d; cursor: not-allowed; }
+#replay-btn { background-color: #6c757d; }
+#replay-btn:hover { background-color: #5a6268; }
 
-#confirm-submit-btn:hover {
-    background-color: #0056b3;
-}
+/* Rating Form & Sliders */
+#rating-form { margin-top: 2em; text-align: left; }
+fieldset { border: 1px solid #ddd; border-radius: 8px; padding: 1.5em 2em; }
+legend { font-weight: bold; padding: 0 0.5em; color: #555; font-size: 1.1em; }
+.rating-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2em; }
+.rating-options label { min-width: 180px; text-align: right; margin-right: 1.5em; color: #495057; }
+.slider-container { display: flex; align-items: center; flex-grow: 1; }
+input[type="range"] { width: 100%; cursor: pointer; }
+.slider-value { font-weight: bold; color: #007bff; min-width: 2.5em; text-align: center; margin-left: 1.5em; font-size: 1.1em; }
+#form-action-buttons { margin-top: 2em; text-align: center; }
+#next-song-btn { /* Uses generic button styles below */ }
+#next-song-btn:disabled { background-color: #adb5bd; color: #dfe3e6; cursor: not-allowed; }
 
-#cancel-submit-btn {
-    background-color: #e9ecef;
-    color: #495057;
-    border: 1px solid #ced4da;
-}
-
-#cancel-submit-btn:hover {
-    background-color: #dae0e5;
-}
-
+/* Progress Indicator */
 #progress-indicator {
     font-size: 1.1em;
     font-weight: bold;
     color: #6c757d;
-    margin-bottom: 1em;
     background-color: #e9ecef;
     padding: 8px 15px;
     border-radius: 5px;
     display: inline-block;
-    /* 讓背景色只包裹文字 */
+    margin-top: 2em;
 }
 
-/* --- 最終提交按鈕的樣式 (讓它和 "下一步" 有區別) --- */
-#final-submit-btn {
-    background-color: #28a745;
-    /* 綠色，表示完成 */
-    color: white;
+/* Modal */
+#modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
+#modal-overlay.visible { display: flex; opacity: 1; }
+#confirmation-modal { background-color: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); max-width: 800px; width: 90%; text-align: left; transform: scale(0.95); transition: transform 0.3s ease; }
+#modal-overlay.visible #confirmation-modal { transform: scale(1); }
+#summary-content { margin: 1.5em 0; }
+#summary-table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.9em; }
+#summary-table th, #summary-table td { border: 1px solid #ccc; padding: 8px 5px; text-align: center; }
+#summary-table th { font-weight: normal; background-color: #f8f9fa; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 1em; margin-top: 1.5em; }
+
+
+/* --- 4. Styles for demographics.html (Final Questionnaire) --- */
+
+/* Full-bleed layout for demographics */
+#demographics-screen {
+    text-align: left;
+    border-top: 2px solid #eee;
+    margin-top: 2em;
+    padding: 2em 3em;
+    box-sizing: border-box;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#demographics-screen h2, #demographics-screen > p { text-align: center; margin-bottom: 1.5em; max-width: 800px; margin-left: auto; margin-right: auto; }
+
+/* Demographics Form Elements */
+.demographics-form { margin: 0 auto; max-width: 1200px; /* Give the form itself a max width */ }
+.demographics-question { margin-bottom: 2em; }
+.demographics-question > label { display: block; font-weight: bold; margin-bottom: 0.8em; color: #333; }
+.demographics-question input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em; }
+.demographics-question .radio-group { display: flex; gap: 1.5em; }
+.demographics-question .radio-group label { font-weight: normal; }
+
+/* Checkbox Grid */
+.checkbox-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 1.5em; }
+.checkbox-grid label { display: flex; align-items: center; gap: 0.5em; font-weight: normal; cursor: pointer; }
+.checkbox-grid input[type="checkbox"] { width: 1.2em; height: 1.2em; }
+@media (max-width: 768px) { .checkbox-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* Similarity Matrix */
+/* --- 相似度矩陣 --- */
+#similarity-matrix-container { 
+    overflow-x: auto; 
+    padding: 15px; 
+    background-color: #f8f9fa; 
+    border: 1px dashed #ccc; 
+    border-radius: 5px; 
+}
+
+.similarity-matrix {
+    border-collapse: collapse;
+    font-size: 14px; /* --- 核心修改：將字體從 11px 放大到 14px --- */
+}
+
+.similarity-matrix th,
+.similarity-matrix td {
+    border: 1px solid #ccc;
+    padding: 5px; /* --- 修改：增加內距，讓儲存格更開闊 --- */
+    text-align: center;
+    vertical-align: middle;
+    height: 40px; /* --- 修改：增加行高以適應較大的字體 --- */
+}
+
+/* 表格的列標題 (Row Headers) */
+.similarity-matrix .matrix-row-header {
+    font-weight: bold;
+    background-color: #f0f2f5;
+    text-align: right;
+    padding-right: 12px; /* --- 修改：增加右側內距 --- */
+    white-space: nowrap;
+}
+
+/* 表格的欄標題 (Column Headers) */
+.similarity-matrix .matrix-col-header {
+    background-color: #f0f2f5;
+    min-width: 55px; /* --- 修改：增加最小寬度以容納較大的字體 --- */
+}
+
+.similarity-matrix input[type="checkbox"] {
+    width: 1.4em; /* 配合較大的儲存格，微調 checkbox 大小 */
+    height: 1.4em;
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Thank you message */
+#thank-you-message { text-align: center; padding-top: 2em; }
+
+
+/* --- 5. Generic Button Styles (Used by multiple pages) --- */
+#next-song-btn, #final-submit-btn, #submit-demographics-btn, #confirm-submit-btn, #cancel-submit-btn {
     border: none;
     padding: 12px 25px;
     font-size: 1.1em;
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 2em;
     transition: background-color 0.3s ease;
 }
-
-#final-submit-btn:hover {
-    background-color: #218838;
+#next-song-btn, #submit-demographics-btn, #confirm-submit-btn { background-color: #007bff; color: white; }
+#next-song-btn:hover, #submit-demographics-btn:hover, #confirm-submit-btn:hover { background-color: #0056b3; }
+#final-submit-btn { background-color: #28a745; color: white; margin-top: 1.5em; }
+#final-submit-btn:hover { background-color: #218838; }
+#cancel-submit-btn { background-color: #e9ecef; color: #495057; border: 1px solid #ced4da; }
+#cancel-submit-btn:hover { background-color: #dae0e5; }
+#final-actions-container {
+    /* 使用我們之前用來內縮內容的技巧 */
+    padding-left: 3em;
+    padding-right: 3em;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2.5em;
 }
 
-/* --- 播放器按鈕容器樣式 --- */
-.player-controls {
-    display: flex;
-    /* 使用 Flexbox 排列 */
-    justify-content: center;
-    /* 水平置中 */
-    gap: 1em;
-    /* 按鈕間的距離 */
-    margin-top: 1.5em;
-    /* 與上方元素的距離 */
+/* 讓裡面的按鈕佔滿寬度 */
+#final-actions-container button {
+    width: 100%;
 }
 
-/* --- 重播按鈕的樣式 (讓它和主播放鈕有點區別) --- */
-#replay-btn {
-    background-color: #6c757d;
-    /* 中性灰色 */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#replay-btn:hover {
-    background-color: #5a6268;
-}
-
-/* --- 進度提示在下方的新樣式 --- */
-#progress-indicator {
-    margin-top: 2em;
-    /* 與上方按鈕的距離 */
+/* --- 感謝訊息的樣式 --- */
+#thank-you-message {
+    padding-left: 3em;
+    padding-right: 3em;
+    box-sizing: border-box;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }

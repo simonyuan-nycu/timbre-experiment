@@ -1,62 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音樂評分問卷</title>
+    <title>基本資料調查</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <div class="container">
-
-        <h1>音樂評分問卷</h1>
-
-        <p id="instructions">請播放音檔並同時進行評分。您必須在音檔完整播放後，才能提交本首歌曲的評分。</p>
-
-        <audio id="audio-player"></audio>
-
-        <div class="player-controls">
-            <button id="play-pause-btn">播放音樂</button>
-            <button id="replay-btn" style="display: none;">重新播放</button>
-        </div>
-
-        <form id="rating-form" name="music-rating" method="POST" data-netlify="true">
-            
-            <fieldset id="slider-fieldset">
-                <legend>在聽完音樂後，請根據您的感受在不同屬性給出您的評分：</legend>
-                </fieldset>
-
-            <div id="form-action-buttons">
-                <button type="submit" id="next-song-btn">下一步</button>
-                <button type="button" id="final-submit-btn" style="display: none;">下載資料</button>
-            </div>
-
-        </form>
-
-        <!--<div id="demographics-screen" style="display: none;">
+        
+        <div id="demographics-screen">
             <h2>基本資料調查</h2>
             <p>感謝您完成主要的評分任務！最後，請協助我們填寫以下幾項基本資料，這將有助於我們的研究分析。</p>
             
             <div class="demographics-form">
-                
-                <div class="demographics-question">
-                    <label for="age-input">您的年齡：</label>
-                    <input type="number" id="age-input" name="age" min="1">
-                </div>
-                
-                <div class="demographics-question">
-                    <label>您的性別：</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="gender" value="male"> 男性</label>
-                        <label><input type="radio" name="gender" value="female"> 女性</label>
-                        <label><input type="radio" name="gender" value="other"> 其他</label>
-                        <label><input type="radio" name="gender" value="prefer_not_to_say"> 不願透露</label>
-                    </div>
-                </div>
-
                 <div class="demographics-question">
                     <label>在整個評分過程中，您認為哪些音色描述詞對您來說是不好用，或是在評分時比較困難的？ (可複選)</label>
                     <div class="checkbox-grid">
@@ -78,36 +36,25 @@
                         <label><input type="checkbox" name="difficult_descriptors" value="muddy"> 混濁 (Muddy)</label>
                     </div>
                 </div>
-
                 <div class="demographics-question">
                     <label>在整個評分過程中，您認為哪些音色描述詞在使用上是相近的？ (可複選)</label>
                     <div id="similarity-matrix-container"></div>
                 </div>
+            </div> </div>
 
-            </div> <button id="submit-demographics-btn" type="button">完成問卷</button>
-
-        </div> -->
-        <div id="progress-indicator" style="display: none;">
-            正在評分第 <span id="current-file-number">1</span> 首 / 共 <span id="total-file-number"></span> 首
+        <div id="thank-you-message" style="display: none;">
+            <h2>感謝您的評分！</h2>
+            <p>所有音檔皆已評分完畢，請點擊下方按鈕來下載您的評分結果。</p>
+            <p>請將這份下載下來的excel(csv)檔案繳回給感知認知處理實驗室</p>
         </div>
 
-    </div>
-    <div id="modal-overlay">
-        <div id="confirmation-modal">
-            <h2>請確認您的評分</h2>
-            <p>請檢查以下評分是否正確，確認後將儲存本首歌曲的評分並繼續下一首。</p>
-            <div id="summary-content"></div>
-            <div class="modal-actions">
-                <button id="cancel-submit-btn" type="button">返回修改</button>
-                <button id="confirm-submit-btn" type="button">確認並繼續</button>
-            </div>
+        <div id="final-actions-container">
+            <button id="submit-demographics-btn" type="button">完成問卷</button>
+            <button type="button" id="final-submit-btn" style="display: none;">下載資料</button>
         </div>
+        
     </div>
 
-    <script src="survey_script.js"></script>
-
+    <script src="demographics-script.js"></script> 
 </body>
-
 </html>
-
-<!--https://simonyuan-nycu.github.io/timbre-experiment/-->
