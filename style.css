@@ -127,7 +127,7 @@ legend { font-weight: bold; padding: 0 0.5em; color: #555; font-size: 1.1em; }
 input[type="range"] { width: 100%; cursor: pointer; }
 .slider-value { font-weight: bold; color: #007bff; min-width: 2.5em; text-align: center; margin-left: 1.5em; font-size: 1.1em; }
 #form-action-buttons { margin-top: 2em; text-align: center; }
-#next-song-btn { /* Uses generic button styles below */ }
+
 #next-song-btn:disabled { background-color: #adb5bd; color: #dfe3e6; cursor: not-allowed; }
 
 /* Progress Indicator */
