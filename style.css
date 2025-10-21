@@ -276,3 +276,74 @@ input[type="range"] { width: 100%; cursor: pointer; }
     margin-right: auto;
     text-align: center;
 }
+
+/* style.css */
+
+/* --- 範例練習頁面樣式 (practice.html) --- */
+.practice-container {
+    max-width: 900px; /* 可以比評分頁窄一點 */
+}
+
+.practice-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5em 2em;
+    margin-bottom: 2em;
+    text-align: left;
+}
+
+.practice-item h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #495057;
+}
+
+.play-practice-btn {
+    display: block; /* 讓按鈕獨佔一行 */
+    margin: 1em auto; /* 上下邊距，水平置中 */
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.play-practice-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.practice-answer {
+    margin-top: 1.5em;
+    padding-top: 1em;
+    border-top: 1px dashed #ccc;
+}
+.practice-answer h4 {
+    margin-bottom: 0.5em;
+}
+
+.listen-status {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 1em;
+    padding: 5px;
+    border-radius: 4px;
+}
+.listen-status.listened {
+    color: #155724;
+    background-color: #d4edda; /* 綠色背景 */
+}
+.listen-status.not-listened {
+    color: #721c24;
+    background-color: #f8d7da; /* 紅色背景 */
+}
+
+/* 禁用狀態的按鈕/連結樣式 */
+.start-button.disabled {
+    background-color: #adb5bd;
+    pointer-events: none; /* 讓連結無法被點擊 */
+    cursor: not-allowed;
+    opacity: 0.65;
+}
