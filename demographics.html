@@ -16,7 +16,7 @@
             
             <div class="demographics-form">
                 <div class="demographics-question">
-                    <label>在整個評分過程中，您認為哪些音色描述詞對您來說是不好用，或是在評分時比較困難的？ (可複選)</label>
+                    <label>在整個評分過程中，您認為哪些音色描述詞對您來說是不好用、不常用，或是在評分時比較困難的？ (可複選)</label>
                     <div class="checkbox-grid">
                         <label><input type="checkbox" name="difficult_descriptors" value="slim"> 纖細 (Slim)</label>
                         <label><input type="checkbox" name="difficult_descriptors" value="bright"> 明亮 (Bright)</label>
@@ -34,10 +34,37 @@
                         <label><input type="checkbox" name="difficult_descriptors" value="harmonize"> 和諧 (Harmonize)</label>
                         <label><input type="checkbox" name="difficult_descriptors" value="soft"> 柔和 (Soft)</label>
                         <label><input type="checkbox" name="difficult_descriptors" value="muddy"> 混濁 (Muddy)</label>
+                        <label><input type="checkbox" name="difficult_descriptors" value="low"> 低沉 (low)</label>
+                        <label><input type="checkbox" name="difficult_descriptors" value="magnetic"> 磁性 (Magnetic)</label>
                     </div>
                 </div>
+
                 <div class="demographics-question">
-                    <label>在整個評分過程中，您認為哪些音色描述詞在使用上是相近的？ (可複選)</label>
+                    <label>若是要用6 ~ 8個音色描述詞來做音色評分，你認為哪些哪些描述詞能夠完整描述一個人的音色? (請選擇6~8項)</label>
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" name="recommended_descriptors" value="slim"> 纖細 (Slim)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="bright"> 明亮 (Bright)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="dark"> 黯淡 (Dark)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="sharp"> 尖銳 (Sharp)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="thick"> 渾厚 (Thick)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="thin"> 單薄 (Thin)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="rich"> 厚實 (Rich)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="crisp"> 清脆 (Crisp)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="shriveled"> 乾癟 (Shriveled)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="round"> 豐滿 (Round)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="rough"> 粗糙 (Rough)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="pure"> 純淨 (Pure)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="hoarse"> 嘶啞 (Hoarse)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="harmonize"> 和諧 (Harmonize)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="soft"> 柔和 (Soft)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="muddy"> 混濁 (Muddy)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="low"> 低沉 (low)</label>
+                        <label><input type="checkbox" name="recommended_descriptors" value="magnetic"> 磁性 (Magnetic)</label>
+                    </div>
+                </div>
+
+                <div class="demographics-question">
+                    <label>在整個評分過程中，您認為哪些音色描述詞在使用上是相近的？請在你覺得相近的兩個描述詞的交匯點打勾。(可複選)</label>
                     <div id="similarity-matrix-container"></div>
                 </div>
             </div> </div>

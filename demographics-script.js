@@ -1,5 +1,3 @@
-// demographics-script.js (最終版：移除年齡與性別)
-
 document.addEventListener('DOMContentLoaded', function () {
     const ratingsJSON = localStorage.getItem('allRatingsData');
     const allRatings = ratingsJSON ? JSON.parse(ratingsJSON) : [];
@@ -18,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { name: 'rich', label: '厚實' }, { name: 'crisp', label: '清脆' }, { name: 'shriveled', label: '乾癟' },
         { name: 'round', label: '豐滿' }, { name: 'rough', label: '粗糙' }, { name: 'pure', label: '純淨' },
         { name: 'hoarse', label: '嘶啞' }, { name: 'harmonize', label: '和諧' }, { name: 'soft', label: '柔和' },
-        { name: 'muddy', label: '混濁' }
+        { name: 'muddy', label: '混濁' }, { name: 'low', label: '低沉' }, { name: 'magnetic', label: '磁性' }
     ];
 
     const demographicsScreen = document.getElementById('demographics-screen');
@@ -51,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function generateAndDownloadCSV() {
         if (allRatings.length === 0) { alert("沒有任何評分資料可供下載。"); return; }
+
+        allRatings.sort((a, b) => {
+            // 提取檔名進行比較 (支援中文與數字排序)
+            return a.audioFile.localeCompare(b.audioFile, 'zh-Hant', { numeric: true });
+        });
+        // *************************************************
         const ratingHeaders = ['audioFile'].concat(sliderData.map(d => d.name));
         const demoHeaders = Object.keys(demographicsData);
         const headers = ratingHeaders.concat(demoHeaders);
@@ -76,14 +80,28 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     submitDemographicsBtn.addEventListener('click', function() {
-        // *** 核心修改：移除對 age 和 gender 的資料收集 ***
+        // 1. 收集「困難描述詞」
         const difficultCheckboxes = document.querySelectorAll('input[name="difficult_descriptors"]:checked');
         const difficultValues = Array.from(difficultCheckboxes).map(cb => cb.value);
+
+        // 2. 收集「推薦描述詞」 (新問題)
+        // 記得：您必須在 HTML 中將第二題的 name 改為 "recommended_descriptors"
+        const recommendedCheckboxes = document.querySelectorAll('input[name="recommended_descriptors"]:checked');
+        const recommendedValues = Array.from(recommendedCheckboxes).map(cb => cb.value);
+
+        // 檢查是否符合 6~8 項的要求 (可選，但建議加入)
+        if (recommendedValues.length < 6 || recommendedValues.length > 8) {
+            alert(`您在「推薦描述詞」選擇了 ${recommendedValues.length} 項。\n請依照題目要求，選擇 6 到 8 項描述詞。`);
+            return; // 阻止提交，讓使用者繼續修改
+        }
+
+        // 3. 收集「相似度矩陣」
         const similarPairCheckboxes = document.querySelectorAll('input[name="similar_pairs"]:checked');
         const similarPairValues = Array.from(similarPairCheckboxes).map(cb => cb.value);
 
         demographicsData = {
             difficult_descriptors: difficultValues.join('; '),
+            recommended_descriptors: recommendedValues.join('; '), // 新增的資料
             similar_pairs: similarPairValues.join('; ')
         };
 
