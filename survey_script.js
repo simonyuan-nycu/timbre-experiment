@@ -1,15 +1,15 @@
 // survey-script.js (隨機播放 + 斷點續傳版)
 
 document.addEventListener('DOMContentLoaded', function () {
-    const originalAudioFiles = [
+    /*const originalAudioFiles = [
         "audio/1.wav",
         "audio/2.wav",
         "audio/3.wav",
         "audio/4.wav",
         "audio/5.wav",
-    ]
+    ]*/
     // ===== 原始音檔清單 (這裡放您的所有檔案，順序不重要) =====
-    /*const originalAudioFiles = [
+    const originalAudioFiles = [
         "audio/DH/DH_但愿人长久.wav", 
         "audio/DH/DH_如果没有你.wav",
         "audio/DH/DH_我只在乎你.wav",
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "audio/YYH/YYH_月亮代表我的心.wav",
         "audio/YYH/YYH_至少还有你.wav",
         "audio/YYH/YYH_甜蜜蜜.wav" 
-    ];*/
+    ];
 
     // *** 核心修改：處理隨機播放列表 ***
     // 1. 嘗試從 localStorage 讀取「已經隨機好的播放列表」
